@@ -1,0 +1,3 @@
+// example.lox
+var language = "lox";
+print language;
