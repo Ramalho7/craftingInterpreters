@@ -23,9 +23,15 @@ public class Lox {
     }
 
     private static void runFile(String path) throws IOException {
-        if (hadError) System.exit(65);
+        if (!path.endsWith(".lox")) {
+            System.err.println("Error: The file must have a .lox extension.");
+            System.exit(64);
+        }
+
         byte[] bytes = Files.readAllBytes(Paths.get(path));
         run(new String(bytes, Charset.defaultCharset()));
+
+        if (hadError) System.exit(65);
     }
 
     private static void runPrompt() throws IOException {

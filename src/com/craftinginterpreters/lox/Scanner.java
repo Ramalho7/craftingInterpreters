@@ -81,8 +81,6 @@ class Scanner {
                 if (match('/')) {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd()) advance();
-                } else if (match('*')){
-                    blockComment();
                 } else {
                     addToken(SLASH);
                 }
@@ -112,22 +110,6 @@ class Scanner {
                 }
                 break;
         }
-    }
-
-    private void blockComment() {
-        while (!isAtEnd()) {
-            if (peek() == '*' && peekNext() == '/') {
-                advance(); // *
-                advance(); // /
-                return;
-            }
-
-            if (peek() == '\n') line++;
-
-            advance();
-        }
-
-        Lox.error(line, "Unterminated block comment.");
     }
 
     private void identifier() {
